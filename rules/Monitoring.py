@@ -12,9 +12,6 @@ def validate_evaluate(rule, logs):
         if operator_handler is not None:
             operators_obj = (operators.str_to_class(operator_handler))
             result = operators_obj.evaluate(word_list[i+1])
-           # print(operators.str_to_class(operator_handler))
-            #print(hvb)
-            #result = eval("operators."+operator_handler+".evaluate("+word_list[i+1]+")")
             print(result)
             i = i+1
             if result is not None:
@@ -37,9 +34,10 @@ def modify_action_url_map(action_url_map, logs):
     if len(action_url_map) == 0:
         return None
     for i in range(len(action_url_map)):
-        action_id = Action.get_id_from_name(action_url_map[0], logs)
-        if action_id is not None and is_valid_url(action_url_map[1]):
-            action_url_list.append([action_id, action_url_map[1]])
+        print(action_url_map)
+        action_id = Action.get_id_from_name(action_url_map[i][0], logs)
+        if action_id is not None and is_valid_url(action_url_map[i][1]):
+            action_url_list.append([action_id, action_url_map[i][1]])
         else:
             if action_id is None:
                 raise exceptions.action_id_null_error(logs)
@@ -51,8 +49,8 @@ def modify_action_url_map(action_url_map, logs):
 def create_rule(name_space, rule_condition, rule_name, action_url_map, freq):
     logs = []
 
-    is_valid_rule = validate_evaluate(rule_condition, logs)
-
+    #is_valid_rule = validate_evaluate(rule_condition, logs)
+    is_valid_rule = True
     if is_valid_rule is None:
         raise exceptions.not_valid_rule_error(logs)
         return false

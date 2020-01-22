@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'ruleEngine.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'monitoring',
+        'NAME': 'alerting',
         'USER': passwords.username,
         'PASSWORD': passwords.password,
         'HOST': '',

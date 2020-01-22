@@ -18,10 +18,10 @@ def create_rule(request):
         rule_name = rules_input["name"]
         rule = rules_input["rule"]
         name_space = rules_input["namespace"]
-        action_url_map = {}
+        action_url_map = []
         action_urls = rules_input["actions"]
         for action_url in action_urls:
-            action_url_map[action_url["name"]] = action_url["url"]
+            action_url_map.append([action_url["name"], action_url["url"]])
 
         freq = rules_input["frequency"]
         print(Monitoring.create_rule(name_space, rule, rule_name, action_url_map, freq))
