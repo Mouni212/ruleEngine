@@ -7,4 +7,4 @@ Creation and execution of Rules
 - Rishabh Gupta
 - Mounika Mukkamalla
 
-## Mentored by Vikas Jain, Unacademy
+## Mentored by Vikas Chahal, Unacademy

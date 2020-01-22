@@ -18,7 +18,7 @@ class BaseOperatorHandler:
     def description(self):
         pass
 
-    def evaluate(self, column_name="time_taken", begin_time_given="0d 0h 0m 0s", *args, **kwargs):
+    def evaluate(self, column_name="time_taken", begin_time_given="0d_0h_0m_0s"):
         begin_time = date_time.change_date_time(begin_time_given)
         pass
 
@@ -32,10 +32,9 @@ class P99OperatorHandler(BaseOperatorHandler):
     def description(self):
         return "gives worst 1% of the given field matrix"
 
-    def evaluate(self, column_name="time_taken", begin_time_given="0d 0h 0m 0s"):
+    def evaluate(self, column_name="time_taken", begin_time_given="0d_0h_0m_0s"):
         begin_time = date_time.change_date_time(begin_time_given)
-        print("YEAH WE ARE IN EVALUATE")
-        print("operators " + str(begin_time))
+        print("operators " + str(begin_time) + " " + str(begin_time_given))
         column_name_list = models.ResponseTime.get_columns(column_name=column_name, begin_time=begin_time)
         print(column_name_list)
         column_name_list = np.array(column_name_list)
@@ -52,7 +51,7 @@ class AvgOperatorHandler(BaseOperatorHandler):
     def description(self):
         return "gives average of the given field matrix"
 
-    def evaluate(self, column_name="time_taken", begin_time_given="0d 0h 0m 0s", *args, **kwargs):
+    def evaluate(self, column_name="time_taken", begin_time_given="0d_0h_0m_0s", *args, **kwargs):
         begin_time = date_time.change_date_time(begin_time_given)
         column_name_list = models.ResponseTime.get_columns(column_name, begin_time)
         column_name_list = np.array(column_name_list)
