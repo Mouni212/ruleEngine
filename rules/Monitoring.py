@@ -2,17 +2,25 @@ from .models import RuleAction, Rule, Action
 from .utils import exceptions, operators
 
 
-def validate_evaluate(rule):
+def validate_evaluate(rule, logs):
     word_list = rule.split(" ")
     rules = ""
-    list_length = word_list.size()
-    for i in list_length:
+    list_length = len(word_list)
+    for i in range(list_length):
         operator_handler = operators.operator_dictionary[word_list[i]]
+        print(word_list[i])
         if operator_handler is not None:
-            result = getattr(operator_handler, 'evaluate')(word_list[i+1])
+            operators_obj = (operators.str_to_class(operator_handler))
+            result = operators_obj.evaluate(word_list[i+1])
+           # print(operators.str_to_class(operator_handler))
+            #print(hvb)
+            #result = eval("operators."+operator_handler+".evaluate("+word_list[i+1]+")")
+            print(result)
+            i = i+1
             if result is not None:
                 rules.append(result)
             else:
+                logs.append(" Rule Syntax is not correct")
                 print(" Rule Syntax is not correct")
                 return None
         else:
@@ -29,7 +37,7 @@ def modify_action_url_map(action_url_map, logs):
     if len(action_url_map) == 0:
         return None
     for i in range(len(action_url_map)):
-        action_id = Action.objects.get_id_from_name(action_url_map[0], logs)
+        action_id = Action.get_id_from_name(action_url_map[0], logs)
         if action_id is not None and is_valid_url(action_url_map[1]):
             action_url_list.append([action_id, action_url_map[1]])
         else:
@@ -54,12 +62,12 @@ def create_rule(name_space, rule_condition, rule_name, action_url_map, freq):
     if action_url_map is None:
         raise exceptions.empty_action_url_map_error(logs)
         return false
-    rule_id = Rule.objects.insert_into_rule_table(name_space, rule_condition, rule_name, freq, logs)
+    rule_id = Rule.insert_into_rule_table(name_space, rule_condition, rule_name, freq, logs)
 
     for action_url in action_url_map:
         action_id = action_url[0]
         url = action_url[1]
-        RuleAction.objects.insert_into_rule_action_table(rule_id, action_id, url, logs)
+        RuleAction.insert_into_rule_action_table(rule_id, action_id, url, logs)
 
     return logs
 

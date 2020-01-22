@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'rest_framework'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -79,7 +78,7 @@ WSGI_APPLICATION = 'ruleEngine.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rule_action',
+        'NAME': 'monitoring',
         'USER': passwords.username,
         'PASSWORD': passwords.password,
         'HOST': '',
