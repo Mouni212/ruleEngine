@@ -4,6 +4,7 @@ from .models import RuleAction, Rule, Action
 from .utils import operators
 from .utils.exceptions import exceptions
 
+
 def validate_evaluate(rule, logs):
     word_list = rule.split(" ")
     rules = ""
@@ -12,19 +13,21 @@ def validate_evaluate(rule, logs):
     while i < list_length:
         operator_handler = operators.operator_dictionary.get(word_list[i])
         if operator_handler is not None:
-            operators_obj = (operators.str_to_class(operator_handler))
+            #operators_obj = (operators.str_to_class(operator_handler))
             try:
-                print(word_list[i+2])
-                result = operators_obj.evaluate(column_name=word_list[i + 1], begin_time_given = word_list[i + 2])
+                #print(word_list[i+2])
+                result = operator_handler(name=word_list[i]).evaluate(column_name=word_list[i + 1], begin_time_given=word_list[i + 2])
                 i = i + 3
                 rules += result
-            except:
+            except Exception as e:
+                print(e)
                 raise exceptions.Invalid("Rule is not valid")
         else:
             rules += word_list[i]
             i = i+1
         rules += " "
     try:
+        print("RULES " + str(rules))
         result_value = eval(rules)
         return result_value
     except:
@@ -53,20 +56,12 @@ def modify_action_url_map(action_url_map, logs):
     return action_url_list
 
 
-def rule_existence(rule_condition, name_space):
-    if Rule.get_rule(rule_condition) is not None and :
-        return False
-    else:
-        return True
-
-
 def create_rule(name_space, rule_condition, rule_name, action_url_map, freq):
     logs = []
     try:
         is_valid_rule = validate_evaluate(rule_condition, logs)
     except Exception as e:
         raise e
-        #return HttpResponse("404")
 
     if is_valid_rule is None:
         raise exceptions.Invalid("not_valid_rule_error")
@@ -80,8 +75,11 @@ def create_rule(name_space, rule_condition, rule_name, action_url_map, freq):
     if action_url_map is None:
         raise exceptions.Invalid("empty_action_url_map_error")
         return false
-    rule_exist = rule_existence(rule_condition, name_space)
-    rule_id = Rule.insert_into_rule_table(name_space, rule_condition, rule_name, freq, logs)
+    rule_id = Rule.rule_existence(rule_name, name_space)
+    if rule_id is not None:
+        Rule.update(rule_id, name_space, rule_condition, rule_name, freq)
+    else:
+        rule_id = Rule.insert_into_rule_table(name_space, rule_condition, rule_name, freq, logs)
 
     for action_url in action_url_map:
         action_id = action_url[0]

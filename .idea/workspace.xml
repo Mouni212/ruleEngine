@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d0b87132-ff26-4963-9aa7-3f0fb46a8007" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/rules/utils/exceptions/exceptions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readMe.md" beforeDir="false" afterPath="$PROJECT_DIR$/readMe.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/Monitoring.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/monitoring.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/migrations/0002_auto_20200121_2358.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/rules/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/utils/date_time.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/utils/date_time.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/utils/exceptions/action_id_null_error.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/utils/exceptions/empty_action_url_map_error.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/utils/exceptions/invalid_url_error.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/utils/exceptions/not_valid_rule_error.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rules/monitoring.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/monitoring.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rules/utils/exceptions/exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/utils/exceptions/exceptions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rules/utils/operators.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/utils/operators.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rules/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/views.py" afterDir="false" />
     </list>

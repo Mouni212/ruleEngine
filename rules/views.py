@@ -32,17 +32,19 @@ def create_rule(request):
 
         return HttpResponse("201 return code")
 
+
 def get_rule(request):
     if request.method == 'GET':
         rules = Rule.objects.all()
         rules_json = json.dumps(rules)
         return JsonResponse(rules_json)
 
-
+@csrf_exempt
 def delete_rule(request):
     if request.method == 'POST':
         rule_name_input = json.loads(request.body)
         rule_name = rule_name_input["rule_name"]
+        print(rule_name)
         monitoring.delete_rule(rule_name)
         return HttpResponse("201 return code")
 

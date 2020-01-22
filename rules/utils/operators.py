@@ -39,6 +39,7 @@ class P99OperatorHandler(BaseOperatorHandler):
         print(column_name_list)
         column_name_list = np.array(column_name_list)
         result = np.percentile(column_name_list, 1)
+        print("RESULT " + str(result))
         return str(result)
 
 
@@ -59,4 +60,4 @@ class AvgOperatorHandler(BaseOperatorHandler):
         return str(result)
 
 
-operator_dictionary = {"avg": "AvgOperatorHandler", "P99": "P99OperatorHandler"}
+operator_dictionary = {"avg": AvgOperatorHandler, "P99": P99OperatorHandler}

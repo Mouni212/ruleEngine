@@ -43,9 +43,21 @@ class Rule(models.Model):
         return rules
 
     def rule_existence(rule_name, namespace):
-        rule_object = Rule.objects.filter(name=rule_name, namespace_name=namespace)
-        if rule_object is None:
-            return
+        rule_id = list(Rule.objects.filter(name=rule_name, namespace__name=namespace).values_list('id', flat=True))
+        #print(rule_id)
+        if len(rule_id) == 0:
+            return None
+        else:
+            print(rule_id)
+            return rule_id[0]
+
+    def update(rule_id, namespace_name, rule_condition, rule_name, frequency):
+        rule_object = Rule.objects.get(id=rule_id)
+        rule_object.namespace__name = namespace_name
+        rule_object.name = rule_name
+        rule_object.frequency = frequency
+        rule_object.rule_condition = rule_condition
+        rule_object.save()
 
 class Action(models.Model):
     name = models.CharField(max_length=100)
