@@ -1,5 +1,4 @@
-
-class RequestHandler:
+class ActionHandler:
     def __init__(self):
         pass
 
@@ -7,20 +6,20 @@ class RequestHandler:
     def description(self):
         pass
 
-    def request(url, msg):
+    def apply_action(url, msg):
         pass
 
-class PostToSlack(RequestHandler):
+
+class SlackHandler(ActionHandler):
     def __init__(self):
-        RequestHandler.__init__(self)
+        ActionHandler.__init__(self)
 
     @property
     def description(self):
         return "posts the message to slack"
 
-    def request(url, msg):
+    @classmethod
+    def apply_action(cls, url, msg):
         data = {'text': msg}
         response = requests.post(url, json.dumps(data), headers={'content-type': 'application/json'})
         return response
-
-
