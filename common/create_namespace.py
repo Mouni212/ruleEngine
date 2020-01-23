@@ -2,5 +2,8 @@ from rules.models import Namespace
 
 namespaces = ["Recommendation", "Bookmarking"]
 
-for namespace in namespaces:
-    Namespace.create_namespace(namespace)
+
+def namespace_table():
+    for namespace in namespaces:
+        Namespace.create_namespace(namespace)
+
