@@ -1,6 +1,6 @@
+from . import operator_handlers
 from .models import RuleAction, Rule, Action
-from .utils import operators
-from .utils.exceptions import exceptions
+from common.exceptions import exceptions
 
 
 def validate_evaluate(rule_condition):
@@ -9,14 +9,16 @@ def validate_evaluate(rule_condition):
     list_length = len(word_list)
     i = 0
     while i < list_length:
-        operator_handler = operators.operator_dictionary.get(word_list[i])
+        try:
+            operator_handler = operator_handlers.operator_dictionary.get(word_list[i])
+        except Exception as e:
+            raise e
         if operator_handler is not None:
             try:
                 result = operator_handler(name=word_list[i]).evaluate(metric_name=word_list[i + 1], begin_time_given=word_list[i + 2])
                 i = i + 3
                 rules += result
             except Exception as e:
-                print(e)
                 raise exceptions.InvalidException("Rule is not valid")
         else:
             rules += word_list[i]

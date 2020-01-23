@@ -1,7 +1,7 @@
 import numpy as np
 from rules import models
 
-from rules.utils import date_time
+from common import date_time
 
 
 class BaseOperatorHandler:
@@ -26,12 +26,17 @@ class P99OperatorHandler(BaseOperatorHandler):
         return "gives worst 1% of the given field matrix"
 
     def evaluate(self, metric_name="time_taken", begin_time_given="0d_0h_0m_0s"):
-        begin_time = date_time.modify_date_time(begin_time_given)
-        column_name_list = models.ResponseTime.get_metric_data(metric_name=metric_name, begin_time=begin_time)
-        if len(column_name_list) == 0:
+        try:
+            begin_time = date_time.modify_date_time(begin_time_given)
+        except Exception as e:
+            raise e
+        metrics_list = models.MetricData.get_metric_data(metric_name=metric_name, begin_time=begin_time)
+
+        if len(metrics_list) == 0:
             return "0"
-        column_name_list = np.array(column_name_list)
-        result = np.percentile(column_name_list, 1)
+        metrics_list = np.array(metrics_list)
+        metrics_list_float = metrics_list.astype(np.float)
+        result = np.percentile(metrics_list_float, 1)
         return str(result)
 
 
@@ -45,12 +50,16 @@ class AvgOperatorHandler(BaseOperatorHandler):
         return "gives average of the given field matrix"
 
     def evaluate(self, metric_name="time_taken", begin_time_given="0d_0h_0m_0s", *args, **kwargs):
-        begin_time = date_time.modify_date_time(begin_time_given)
-        metric_list = models.ResponseTime.get_metric_data(metric_name, begin_time)
-        if len(metric_list) == 0:
+        try:
+            begin_time = date_time.modify_date_time(begin_time_given)
+        except Exception as e:
+            raise e
+        metrics_list = models.MetricData.get_metric_data(metric_name, begin_time)
+        if len(metrics_list) == 0:
             return "0"
-        metric_list = np.array(metric_list)
-        result = np.average(metric_list)
+        metrics_list = np.array(metrics_list)
+        metrics_list_float = metrics_list.astype(np.float)
+        result = np.average(metrics_list_float)
         return str(result)
 
 

@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
-from rules import monitoring
+from rules import utils
 from .models import Rule
 
 
@@ -24,7 +24,7 @@ def create_rule(request):
 
         freq = rules_input["frequency"]
         try:
-            monitoring.create_rule(name_space, rule_condition, rule_name, action_value_map, freq)
+            utils.create_rule(name_space, rule_condition, rule_name, action_value_map, freq)
         except Exception as e:
             return HttpResponse(str(e), status=400)
 
@@ -44,7 +44,7 @@ def delete_rule(request):
         rule_name_input = json.loads(request.body)
         rule_name = rule_name_input["rule_name"]
         try:
-            monitoring.delete_rule(rule_name)
+            utils.delete_rule(rule_name)
         except Exception as e:
             return HttpResponse(str(e))
         return HttpResponse("201 return code")

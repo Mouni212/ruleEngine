@@ -1,6 +1,6 @@
 from django.db import models
-from .utils.exceptions import exceptions
-import sys
+from common.exceptions import exceptions
+
 # Create your models here.
 
 action_type_choices = (
@@ -116,27 +116,25 @@ class RuleAction(models.Model):
         return list(values)
 
 
-class ResponseTime(models.Model):
-    namespace = models.TextField()
-    time_taken = models.IntegerField()
-    response_code = models.IntegerField()
-    date_time = models.DateTimeField()
-    is_active = models.BooleanField(default=True)
+class MetricData(models.Model):
+    namespace = models.CharField(max_length=100)
+    index = models.CharField(max_length=100)
+    metric_value = models.CharField(max_length=100)
+    created_date = models.DateTimeField()
 
     def __str__(self):
         return self.namespace
 
-    def create_entry( namespace, time_taken, response_code, date_time):
-        response_obj = ResponseTime.objects.create(namespace=namespace, time_taken=time_taken, response_code=response_code,
-                                          date_time=date_time)
+    def create_entry( namespace, metric_name, metric_value, date_time):
+        response_obj = MetricData.objects.create(namespace=namespace, index=metric_name, metric_value=metric_value,
+                                          created_date=date_time)
         if response_obj is None:
-            raise exceptions.InvalidException("Error in creating row for response code " + str(response_code))
+            raise exceptions.InvalidException("Error in creating row for " + str(namespace))
 
-    def delete_entry(response_id):
-        ResponseTime.objects.filter(id=response_id).delete()
+    def delete_entry(metric_id):
+        MetricData.objects.filter(id=metric_id).delete()
 
     def get_metric_data(metric_name, begin_time):
-        return list(ResponseTime.objects.filter(date_time__gte=str(begin_time)).values_list(metric_name, flat=True))
-
-
+        return list(MetricData.objects.filter(created_date__gte=str(begin_time),
+                                              index=metric_name).values_list('metric_value', flat=True))
 
