@@ -1,13 +1,12 @@
 from django.shortcuts import render
 import json
-from django.http import JsonResponse
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 from rules import monitoring
 from .models import Rule
-from .utils.exceptions import exceptions
+
 
 @csrf_exempt
 def create_rule(request):
@@ -16,36 +15,39 @@ def create_rule(request):
         print("Here in post")
         rules_input = json.loads(request.body)
         rule_name = rules_input["name"]
-        rule = rules_input["rule"]
+        #rule_condition = rules_input["rule_condition"]
+        rule_condition = "P99 time_taken > 25"
         name_space = rules_input["namespace"]
-        action_url_map = []
+        action_value_map = []
         action_urls = rules_input["actions"]
-        for action_url in action_urls:
-            action_url_map.append([action_url["name"], action_url["url"]])
+        for action_value in action_urls:
+            action_value_map.append([action_value["name"], action_value["url"]])
 
         freq = rules_input["frequency"]
         try:
-            monitoring.create_rule(name_space, rule, rule_name, action_url_map, freq)
+            monitoring.create_rule(name_space, rule_condition, rule_name, action_value_map, freq)
         except Exception as e:
-            #print(e)
             return HttpResponse(str(e), status=400)
 
         return HttpResponse("201 return code")
 
 
+@csrf_exempt
 def get_rule(request):
     if request.method == 'GET':
-        rules = Rule.objects.all()
-        rules_json = json.dumps(rules)
-        return JsonResponse(rules_json)
+        rules = list(Rule.objects.all())
+        return render(request, 'show_rules.html', {'rules': rules})
+
 
 @csrf_exempt
 def delete_rule(request):
     if request.method == 'POST':
         rule_name_input = json.loads(request.body)
         rule_name = rule_name_input["rule_name"]
-        print(rule_name)
-        monitoring.delete_rule(rule_name)
+        try:
+            monitoring.delete_rule(rule_name)
+        except Exception as e:
+            return HttpResponse(str(e))
         return HttpResponse("201 return code")
 
 

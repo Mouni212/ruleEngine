@@ -2,9 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d0b87132-ff26-4963-9aa7-3f0fb46a8007" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/rules/templates/show_rules.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ruleEngine.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rule_engine.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruleEngine/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/rule_engine/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruleEngine/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/rule_engine/asgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruleEngine/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/rule_engine/celery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruleEngine/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/rule_engine/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruleEngine/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/rule_engine/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruleEngine/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/rule_engine/wsgi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rules/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rules/monitoring.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/monitoring.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rules/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rules/utils/date_time.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/utils/date_time.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rules/utils/exceptions/exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/utils/exceptions/exceptions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rules/utils/operators.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/utils/operators.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rules/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/views.py" afterDir="false" />
@@ -17,6 +29,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTML File" />
         <option value="Python Script" />
       </list>
     </option>
@@ -32,18 +45,86 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../rule_engine-master" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/rules" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/rules/templates" />
       <recent name="$PROJECT_DIR$/rules/Utils" />
       <recent name="$PROJECT_DIR$/rules" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="rule_engine" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="rule_engine" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <module name="rule_engine" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Twisted Trial">
+      <module name="rule_engine" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -75,6 +156,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="689" y="357" width="604" height="390" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.1053@67.27.1853.1053" timestamp="1579641111483" />
+    <state x="421" y="27" width="1126" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1579739909706">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="421" y="27" width="1126" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1579739909706" />
     <state x="726" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1579714090397">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -84,10 +169,10 @@
     </state>
     <state x="415" y="310" width="374" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1579637910493" />
     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.3773.1053@67.27.3773.1053" timestamp="1579620448660" />
-    <state x="482" y="187" key="SettingsEditor" timestamp="1579634970242">
+    <state x="482" y="187" key="SettingsEditor" timestamp="1579741252846">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1579634970242" />
+    <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1579741252846" />
     <state x="560" y="98" width="866" height="909" key="find.popup" timestamp="1579639287032">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rules</title>
+</head>
+<body>
+
+<div class="control-group">
+    <div class="controls">
+        <table>
+            <tr>
+                <th>Rule_name</th>
+                <th>Rule_condition</th>
+                <th>Namespace</th>
+                <th>Frequency</th>
+            </tr>
+            {% for rule in rules %}
+            <tr>
+                <th>{{ rule.name }}</th>
+                <th>{{ rule.rule_condition }}</th>
+                <th>{{ rule.namespace }}</th>
+                <th>{{ rule.frequency }}</th>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+</div>
+
+
+
+</body>
+</html>

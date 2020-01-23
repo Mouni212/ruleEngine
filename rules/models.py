@@ -1,4 +1,5 @@
 from django.db import models
+from .utils.exceptions import exceptions
 import sys
 # Create your models here.
 
@@ -27,13 +28,16 @@ class Rule(models.Model):
     def __str__(self):
         return self.name
 
-    def insert_into_rule_table(namespace_name, rule_condition, rule_name, frequency, logs):
+    def insert_into_rule_table(namespace_name, rule_condition, rule_name, frequency):
         namespace_id = list(Namespace.objects.filter(name=namespace_name).values_list('id', flat=True))
+        if len(namespace_id) == 0:
+            raise exceptions.InvalidException("No entry found for " + str(namespace_name) + " in Namespace table")
         rule_object = Rule.objects.create(name=rule_name, namespace_id=namespace_id[0], frequency=frequency,
                                           rule_condition=rule_condition)
         if rule_object is None:
-            logs.append("Error in creating " + rule_name + " " + namespace_name)
-        return rule_object.pk
+            raise exceptions.InvalidException("Error in creating " + rule_name + " " + str(namespace_name))
+        else:
+            return rule_object.pk
 
     def delete_rule(rule_id):
         Rule.objects.filter(id=rule_id).delete()
@@ -43,13 +47,13 @@ class Rule(models.Model):
         return rules
 
     def rule_existence(rule_name, namespace):
-        rule_id = list(Rule.objects.filter(name=rule_name, namespace__name=namespace).values_list('id', flat=True))
-        #print(rule_id)
-        if len(rule_id) == 0:
-            return None
-        else:
-            print(rule_id)
-            return rule_id[0]
+        rule_list = list(Rule.objects.filter(name=rule_name, namespace__name=namespace))
+        i = 0
+        while i < len(rule_list):
+            if rule_list[i].isactive:
+                return rule_list[i].id
+            i = i+1
+        return None
 
     def update(rule_id, namespace_name, rule_condition, rule_name, frequency):
         rule_object = Rule.objects.get(id=rule_id)
@@ -57,7 +61,9 @@ class Rule(models.Model):
         rule_object.name = rule_name
         rule_object.frequency = frequency
         rule_object.rule_condition = rule_condition
+        rule_object.is_active = True
         rule_object.save()
+
 
 class Action(models.Model):
     name = models.CharField(max_length=100)
@@ -69,21 +75,24 @@ class Action(models.Model):
 
     def create_action(action_name, action_type):
         action_object = Action.objects.create(name=action_name, action_type=action_type)
-        return action_object.pk
+        if action_object is None:
+            raise exceptions.InvalidException("Error in creating " + action_name)
+        else:
+            return action_object.pk
 
     def delete_action(action_id):
         Action.objects.filter(id=action_id).delete()
 
-    def display(self, action_name):
+    def get_actions(self, action_name):
         actions = list(Action.objects.filter(name=action_name))
         return actions
 
-    def get_id_from_name(action_name, logs):
+    def get_id_from_name(action_name):
         print("ENTERED ")
         action_id = list(Action.objects.filter(name=action_name).values_list("id", flat=True))
 
         if action_id is None:
-            logs.append(action_name + " not found")
+            raise exceptions.InvalidException(action_name + " not found")
         return action_id[0]
 
 
@@ -96,21 +105,20 @@ class RuleAction(models.Model):
     def __str__(self):
         return self.id
 
-    def insert_into_rule_action_table( rule_id, action_id, value, logs):
+    def insert_into_rule_action_table( rule_id, action_id, value):
         rule_action = RuleAction.objects.create(rule_id=rule_id, action_id=action_id, value=value)
         if rule_action is None:
-            logs.append("Error in creating row for " + value)
+            raise exceptions.InvalidException("Error in creating row for " + value)
 
     def delete_rule_action(self, rule_id, action_id):
         RuleAction.objects.filter(rule_id=rule_id, action_id=action_id).delete()
 
-    def display(self, rule_id, action_id):
+    def get_rule_action(self, rule_id, action_id):
         values = RuleAction.objects.filter(rule_id=rule_id, action_id=action_id)
         return list(values)
 
 
 class ResponseTime(models.Model):
-    #id = models.AutoField(primary_key=True)
     namespace = models.TextField()
     time_taken = models.IntegerField()
     response_code = models.IntegerField()
@@ -121,16 +129,16 @@ class ResponseTime(models.Model):
         return self.namespace
 
     def create_entry( namespace, time_taken, response_code, date_time):
-        rule_action = ResponseTime.objects.create(namespace=namespace, time_taken=time_taken, response_code=response_code,
+        response_obj = ResponseTime.objects.create(namespace=namespace, time_taken=time_taken, response_code=response_code,
                                           date_time=date_time)
+        if response_obj is None:
+            raise exceptions.InvalidException("Error in creating row for response code " + str(response_code))
 
     def delete_entry(response_id):
         ResponseTime.objects.filter(id=response_id).delete()
 
-    def get_columns(column_name, begin_time):
-        print("models " + str(begin_time))
-        print(list(ResponseTime.objects.filter(date_time__gte=str(begin_time)).values_list(column_name, flat=True)))
-        return list(ResponseTime.objects.filter(date_time__gte=str(begin_time)).values_list(column_name, flat=True))
+    def get_metric_data(metric_name, begin_time):
+        return list(ResponseTime.objects.filter(date_time__gte=str(begin_time)).values_list(metric_name, flat=True))
 
 
 

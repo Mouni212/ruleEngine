@@ -1,13 +1,7 @@
-import datetime
 import numpy as np
 from rules import models
-import sys
 
 from rules.utils import date_time
-
-
-def str_to_class(class_name):
-    return getattr(sys.modules[__name__], class_name)
 
 
 class BaseOperatorHandler:
@@ -18,8 +12,7 @@ class BaseOperatorHandler:
     def description(self):
         pass
 
-    def evaluate(self, column_name="time_taken", begin_time_given="0d_0h_0m_0s"):
-        begin_time = date_time.change_date_time(begin_time_given)
+    def evaluate(self, metric_name="time_taken", begin_time_given="0d_0h_0m_0s"):
         pass
 
 
@@ -32,14 +25,13 @@ class P99OperatorHandler(BaseOperatorHandler):
     def description(self):
         return "gives worst 1% of the given field matrix"
 
-    def evaluate(self, column_name="time_taken", begin_time_given="0d_0h_0m_0s"):
-        begin_time = date_time.change_date_time(begin_time_given)
-        print("operators " + str(begin_time) + " " + str(begin_time_given))
-        column_name_list = models.ResponseTime.get_columns(column_name=column_name, begin_time=begin_time)
-        print(column_name_list)
+    def evaluate(self, metric_name="time_taken", begin_time_given="0d_0h_0m_0s"):
+        begin_time = date_time.modify_date_time(begin_time_given)
+        column_name_list = models.ResponseTime.get_metric_data(metric_name=metric_name, begin_time=begin_time)
+        if len(column_name_list) == 0:
+            return "0"
         column_name_list = np.array(column_name_list)
         result = np.percentile(column_name_list, 1)
-        print("RESULT " + str(result))
         return str(result)
 
 
@@ -52,11 +44,13 @@ class AvgOperatorHandler(BaseOperatorHandler):
     def description(self):
         return "gives average of the given field matrix"
 
-    def evaluate(self, column_name="time_taken", begin_time_given="0d_0h_0m_0s", *args, **kwargs):
-        begin_time = date_time.change_date_time(begin_time_given)
-        column_name_list = models.ResponseTime.get_columns(column_name, begin_time)
-        column_name_list = np.array(column_name_list)
-        result = np.percentile(column_name_list, 1)
+    def evaluate(self, metric_name="time_taken", begin_time_given="0d_0h_0m_0s", *args, **kwargs):
+        begin_time = date_time.modify_date_time(begin_time_given)
+        metric_list = models.ResponseTime.get_metric_data(metric_name, begin_time)
+        if len(metric_list) == 0:
+            return "0"
+        metric_list = np.array(metric_list)
+        result = np.average(metric_list)
         return str(result)
 
 

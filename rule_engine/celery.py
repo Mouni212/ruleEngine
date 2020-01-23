@@ -4,8 +4,8 @@ from celery import Celery
 from django.conf import settings
 
 # set the default Django settings module for the 'celery' program.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ruleEngine.settings')
-app = Celery('ruleEngine')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rule_engine.settings')
+app = Celery('rule_engine')
 
 # Using a string here means the worker will not have to
 # pickle the object when using Windows.
