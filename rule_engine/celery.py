@@ -8,9 +8,6 @@ from celery import Celery
 from django.conf import settings
 from celery.schedules import crontab
 
-from rule_action.action_handler import action_dictionary
-from rules import utils
-from rules.models import RuleAction, Rule, MetricData
 
 ## variable_list for metric_ data
 namespace_list = ["Recommendation", "Bookmarking"]
