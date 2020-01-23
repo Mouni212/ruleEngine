@@ -2,10 +2,6 @@ from __future__ import absolute_import
 import os
 from celery import Celery
 from django.conf import settings
-from rule_action import action_handler
-from rule_action.action_handler import action_dictionary
-from rules import utils
-from rules.models import RuleAction, Rule
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rule_engine.settings')
@@ -13,12 +9,20 @@ app = Celery('rule_engine')
 
 # Using a string here means the worker will not have to
 # pickle the object when using Windows.
-app.config_from_object('django.conf:settings')
-app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+app.config_from_object('django.conf:settings', namespace='CELERY')
+CELERY_TIMEZONE = 'UTC'
+
+
+app.autodiscover_tasks()
 
 
 @app.task(name="rule_evaluator")
 def evaluate(rule_id):
+    from rule_action import action_handler
+    from rule_action.action_handler import action_dictionary
+    from rules import utils
+    from rules.models import RuleAction, Rule
+
     rule = Rule.objects.get(id=rule_id, is_active=True)
     result = utils.validate_evaluate(rule.rule_condition)
     if result is not None:
@@ -32,6 +36,11 @@ def evaluate(rule_id):
 
 @app.task(name="schedule_rules")
 def fetch_all_rules():
+    from rule_action import action_handler
+    from rule_action.action_handler import action_dictionary
+    from rules import utils
+    from rules.models import RuleAction, Rule
+
     active_rule_list = list(Rule.objects.filter(is_active=True).values_list('id', flat=True))
     print((active_rule_list))
     for rule_id in active_rule_list:
