@@ -4,7 +4,7 @@ from celery import Celery
 from django.conf import settings
 from rules.monitoring import validate_evaluate
 from rule_action import action_handler
-from models import RuleAction
+from models import RuleAction, Rule
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rule_engine.settings')
