@@ -1,6 +1,6 @@
 from . import operator_handlers
 from .models import RuleAction, Rule, Action
-from common.exceptions import exceptions
+from common import exceptions
 
 
 def validate_evaluate(rule_condition):

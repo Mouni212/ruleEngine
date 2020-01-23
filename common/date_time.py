@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from common.exceptions import exceptions
+from common import exceptions
 
 
 def modify_date_time(before_time):

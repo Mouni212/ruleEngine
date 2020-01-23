@@ -1,5 +1,5 @@
 from django.db import models
-from common.exceptions import exceptions
+from common import exceptions
 
 # Create your models here.
 
@@ -16,6 +16,9 @@ class Namespace(models.Model):
 
     def __str__(self):
         return self.name
+
+    def create_namespace(self, name):
+        Namespace.objects.create(name=name)
 
 
 class Rule(models.Model):
