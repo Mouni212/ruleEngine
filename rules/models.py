@@ -17,8 +17,9 @@ class Namespace(models.Model):
     def __str__(self):
         return self.name
 
-    def create_namespace(self, name):
-        namespace_obj = Namespace.objects.get(name=name)
+    @classmethod
+    def create_namespace(cls, name):
+        namespace_obj = Namespace.objects.filter(name=name).first()
         if namespace_obj is None:
             Namespace.objects.create(name=name)
         else:
