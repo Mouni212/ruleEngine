@@ -28,8 +28,7 @@ def validate_evaluate(rule_condition):
         print("RULES " + str(rules))
         result_value = eval(rules)
         if result_value is True:
-            [True, ]
-        return result_value,
+            return result_value
     except:
         raise exceptions.InvalidException("Rule is not valid")
 

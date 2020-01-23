@@ -2,9 +2,10 @@ from __future__ import absolute_import
 import os
 from celery import Celery
 from django.conf import settings
-from rules.monitoring import validate_evaluate
 from rule_action import action_handler
-from models import RuleAction, Rule
+from rule_action.action_handler import action_dictionary
+from rules import utils
+from rules.models import RuleAction, Rule
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rule_engine.settings')
@@ -18,26 +19,25 @@ app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
 @app.task(name="rule_evaluator")
 def evaluate(rule_id):
-    rule = Rule.objects.get(rule_id, is_active=True);
-    result = validate_evaluate(rule)
-
+    rule = Rule.objects.get(id=rule_id, is_active=True)
+    result = utils.validate_evaluate(rule.rule_condition)
     if result is not None:
-        rule_actions = list(RuleAction.objects.get(rule_id=rule_id).value_list('action__name', 'value', flat=True))
-
+        rule_actions = list(RuleAction.objects.filter(id=rule_id).values_list('action__name', 'value'))
         for rule_action in rule_actions:
-            handler = action_dictionary.get(rule_action.action)
+            handler = action_dictionary.get(rule_action[0])
             if handler is not None:
-                handler.apply_action(rule_action.value, msg = rule.rule_name+" state is now ALARM")
+                # handler.apply_action(rule_action[1], msg=rule.name+" state is now ALARM")
+                handler.apply_action('https://hooks.slack.com/services/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', msg=rule.name + " state is now ALARM")
     return
 
 @app.task(name="schedule_rules")
 def fetch_all_rules():
-    active_rule_list = list(Rule.objects.get(is_active=True));
-    for rule in active_rule_list:
-        evaluate(rule.id)
-      #  evaluate.delay(args=[rule.rule_id], kwargs={}, countdown=rule.frequency)
-      #  Monitoring.validate_evaluate.delay(args=[rule, logs], kwargs={}, countdown=rule.frequency)
+    active_rule_list = list(Rule.objects.filter(is_active=True).values_list('id', flat=True))
+    print((active_rule_list))
+    for rule_id in active_rule_list:
+        evaluate(rule_id)
 
+'''
 app.conf.beat_schedule = {
     # Executes every Monday morning at 7:30 a.m.
     'add-every-monday-min-time': {
@@ -45,4 +45,5 @@ app.conf.beat_schedule = {
         'schedule': crontab(hour=7, minute=30, day_of_week=1),
         'args': (16, 16),
     },
-}
+}'''
+

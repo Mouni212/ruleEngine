@@ -1,6 +1,6 @@
 from rules.models import Namespace
 
-namespace = ["Recommendation", "Bookmarking"]
+namespaces = ["Recommendation", "Bookmarking"]
 
-
-Namespace.objects.create()
+for namespace in namespaces:
+    Namespace.create_namespace(namespace)

@@ -18,13 +18,18 @@ class Namespace(models.Model):
         return self.name
 
     def create_namespace(self, name):
-        Namespace.objects.create(name=name)
+        namespace_obj = Namespace.objects.get(name=name)
+        if namespace_obj is None:
+            Namespace.objects.create(name=name)
+        else:
+            if namespace_obj.is_active is False:
+                Namespace.objects.create(name=name)
 
 
 class Rule(models.Model):
     name = models.CharField(max_length=100)
     namespace = models.ForeignKey(Namespace, default=100, verbose_name="namespace", on_delete=models.SET_DEFAULT)
-    frequency = models.IntegerField()
+    frequency = models.CharField(max_length=100)
     rule_condition = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
 
@@ -74,12 +79,12 @@ class Action(models.Model):
     def __str__(self):
         return self.id
 
-    def create_action(action_name, action_type):
-        action_object = Action.objects.create(name=action_name, action_type=action_type)
+    def create_action(action_name):
+        action_object = Action.objects.create(name=action_name)
         if action_object is None:
             raise exceptions.InvalidException("Error in creating " + action_name)
         else:
-            return action_object.pk
+            return  #action_object.pk
 
     def delete_action(action_id):
         Action.objects.filter(id=action_id).delete()

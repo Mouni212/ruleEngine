@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
+from common import date_time
+from rule_engine import celery
 from rules import utils
 from .models import Rule
 
@@ -24,9 +26,16 @@ def create_rule(request):
 
         freq = rules_input["frequency"]
         try:
-            utils.create_rule(name_space, rule_condition, rule_name, action_value_map, freq)
+            frequency_seconds = date_time.total_seconds(freq)
         except Exception as e:
             return HttpResponse(str(e), status=400)
+
+        try:
+            utils.create_rule(name_space, rule_condition, rule_name, action_value_map, frequency_seconds)
+        except Exception as e:
+            return HttpResponse(str(e), status=400)
+
+        celery.fetch_all_rules()
 
         return HttpResponse("201 return code")
 
