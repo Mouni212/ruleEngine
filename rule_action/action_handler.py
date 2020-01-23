@@ -23,3 +23,5 @@ class SlackHandler(ActionHandler):
         data = {'text': msg}
         response = requests.post(url, json.dumps(data), headers={'content-type': 'application/json'})
         return response
+
+action_dictionary = {"slack": SlackHandler}
