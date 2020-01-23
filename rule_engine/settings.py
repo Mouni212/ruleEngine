@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rules',
+    'common',
+    'rule_action'
 ]
 
 MIDDLEWARE = [

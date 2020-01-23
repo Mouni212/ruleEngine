@@ -6,6 +6,7 @@ import random
 
 from celery import Celery
 from django.conf import settings
+from celery.schedules import crontab
 
 from rule_action.action_handler import action_dictionary
 from rules import utils
@@ -24,11 +25,10 @@ app = Celery('rule_engine')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 CELERY_TIMEZONE = 'UTC'
 
-
 app.autodiscover_tasks()
 
 
-@app.task(name="rule_evaluator")
+@app.task(name="rule_evaluator", queue='celery')
 def evaluate(rule_id):
     from rule_action import action_handler
     from rule_action.action_handler import action_dictionary
@@ -48,7 +48,7 @@ def evaluate(rule_id):
     return
 
 
-@app.task(name="schedule_rules")
+@app.task(queue='celery')
 def fetch_all_rules():
     from rule_action import action_handler
     from rule_action.action_handler import action_dictionary
@@ -61,10 +61,12 @@ def fetch_all_rules():
         evaluate(rule_id)
 
 
-@app.task(name="data_generator")
+@app.task(queue='celery')
 def generate_metric_data(initial_date=datetime.datetime(2015, 5, 27, 12, 4, 5),
                          current_date=datetime.datetime(2015, 5, 27, 12, 4, 5)):
+    from rules.models import MetricData
     current_date = current_date + datetime.timedelta(date=1)
+
     metric_low_range = 100
     metric_high_range = 200
     days = (current_date - initial_date).days
@@ -75,12 +77,15 @@ def generate_metric_data(initial_date=datetime.datetime(2015, 5, 27, 12, 4, 5),
                             random.randrange(metric_low_range, metric_high_range, 10), current_date)
 
 
-'''
 app.conf.beat_schedule = {
     # Executes every Monday morning at 7:30 a.m.
-    'add-every-monday-min-time': {
-        'task': 'tasks.add',
-        'schedule': crontab(hour=7, minute=30, day_of_week=1),
-        'args': (16, 16),
+    'fetch_all_rules': {
+        'task': 'rule_engine.celery.fetch_all_rules',
+        'schedule': 1,
     },
-}'''
+    'generate_metric_data': {
+            'task': 'rule_engine.celery.generate_metric_data',
+            'schedule': 3,
+        },
+
+}
