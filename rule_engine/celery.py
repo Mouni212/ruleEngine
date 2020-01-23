@@ -83,5 +83,9 @@ app.conf.beat_schedule = {
         'task': 'rule_engine.celery.fetch_all_rules',
         'schedule': 1,
     },
+    'generate_metric_data': {
+            'task': 'rule_engine.celery.generate_metric_data',
+            'schedule': 3,
+        },
 
 }
