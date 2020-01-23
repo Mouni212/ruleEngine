@@ -72,7 +72,7 @@ def create_rule(name_space, rule_condition, rule_name, action_value_map, freq):
         return false
     rule_id = Rule.rule_existence(rule_name, name_space)
     if rule_id is not None:
-        Rule.update(rule_id, name_space, rule_condition, rule_name, freq)
+        Rule.update(rule_id, rule_condition, freq)
     else:
         try:
             rule_id = Rule.insert_into_rule_table(name_space, rule_condition, rule_name, freq)

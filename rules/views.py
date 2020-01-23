@@ -15,13 +15,12 @@ def create_rule(request):
         print("Here in post")
         rules_input = json.loads(request.body)
         rule_name = rules_input["name"]
-        #rule_condition = rules_input["rule_condition"]
-        rule_condition = "P99 time_taken > 25"
+        rule_condition = rules_input["rule_condition"]
         name_space = rules_input["namespace"]
         action_value_map = []
-        action_urls = rules_input["actions"]
-        for action_value in action_urls:
-            action_value_map.append([action_value["name"], action_value["url"]])
+        action_values = rules_input["actions"]
+        for action_value in action_values:
+            action_value_map.append([action_value["name"], action_value["value"]])
 
         freq = rules_input["frequency"]
         try:

@@ -50,15 +50,13 @@ class Rule(models.Model):
         rule_list = list(Rule.objects.filter(name=rule_name, namespace__name=namespace))
         i = 0
         while i < len(rule_list):
-            if rule_list[i].isactive:
+            if rule_list[i].is_active:
                 return rule_list[i].id
             i = i+1
         return None
 
-    def update(rule_id, namespace_name, rule_condition, rule_name, frequency):
+    def update(rule_id, rule_condition, frequency):
         rule_object = Rule.objects.get(id=rule_id)
-        rule_object.namespace__name = namespace_name
-        rule_object.name = rule_name
         rule_object.frequency = frequency
         rule_object.rule_condition = rule_condition
         rule_object.is_active = True
