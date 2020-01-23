@@ -2,24 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d0b87132-ff26-4963-9aa7-3f0fb46a8007" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/rules/templates/show_rules.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ruleEngine.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rule_engine.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/actions/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/actions/post_to_slack.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruleEngine/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/rule_engine/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruleEngine/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/rule_engine/asgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruleEngine/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/rule_engine/celery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruleEngine/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/rule_engine/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruleEngine/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/rule_engine/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruleEngine/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/rule_engine/wsgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/monitoring.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/monitoring.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/utils/date_time.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/utils/date_time.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/utils/exceptions/exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/utils/exceptions/exceptions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/utils/operators.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/utils/operators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/rules/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +32,7 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../rule_engine-master" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
@@ -63,6 +49,26 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="DjangoTestsConfigurationType">
+      <module name="rule_engine" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="rule_engine" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -83,6 +89,19 @@
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Python.FlaskServer">
+      <module name="rule_engine" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
