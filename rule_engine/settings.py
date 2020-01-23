@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import passwords
+import django
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +27,7 @@ SECRET_KEY = ')d7&l5f!o!mr3b-)5z1ji@_r8^kac3-hh)!c7v&fiaox4z84jv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -123,12 +124,14 @@ USE_L10N = True
 USE_TZ = True
 
 # CELERY STUFF
-BROKER_URL = 'redis://localhost:6379'
+CELERY_REDIS_HOST = os.getenv('CELERY_REDIS_HOST', 'localhost')
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Africa/Nairobi'
+CELERY_BROKER_URL = "redis://%s/%s" % (CELERY_REDIS_HOST, "1")
+
+
 
 
 
@@ -136,3 +139,4 @@ CELERY_TIMEZONE = 'Africa/Nairobi'
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
