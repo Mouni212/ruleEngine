@@ -1,2 +1,8 @@
 passwords.py
 *.pyc
+.idea
+venv
+.rdb
+.DS_Store
+*.log
+
