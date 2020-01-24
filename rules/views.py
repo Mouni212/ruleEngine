@@ -24,18 +24,21 @@ def create_rule(request):
         for action_value in action_values:
             action_value_map.append([action_value["name"], action_value["value"]])
 
+        print("action_value_map", action_value_map)
+
         freq = rules_input["frequency"]
         try:
             frequency_seconds = date_time.total_seconds(freq)
         except Exception as e:
             return HttpResponse(str(e), status=400)
+        #SlackHandler.apply_action()
 
         try:
+
             utils.create_rule(name_space, rule_condition, rule_name, action_value_map, frequency_seconds)
         except Exception as e:
+            print(e)
             return HttpResponse(str(e), status=400)
-
-        celery.fetch_all_rules()
 
         return HttpResponse("201 return code")
 

@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -125,6 +126,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 # CELERY STUFF
 CELERY_REDIS_HOST = os.getenv('CELERY_REDIS_HOST', 'localhost')
