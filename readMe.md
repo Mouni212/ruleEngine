@@ -15,6 +15,17 @@ One such request to server can be:
   	]
 } 
 ```
+### Alarm message for above query on data in Real time query database
+
+![](AlertOnSlack.png)
+
+### Anomaly Detection Code 
+
+![](anomaly_detection_sample_result.png)
+
+### Incoming real time data on MySQL in Grafana
+
+![](grafana_ruleEngine.png)
 
 ## Contributors
 
