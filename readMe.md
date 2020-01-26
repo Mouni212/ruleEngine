@@ -4,7 +4,7 @@ This service allows for monitoring of multiple systems. Each system's health can
 Slides are also attached.
 
 One such request to server can be:
-''' {
+``` {
   "name": "Rule4",
   "namespace": "Recommendation",
   "frequency":"0d_0h_0m_5000s",
@@ -12,7 +12,7 @@ One such request to server can be:
   "actions":[{"name": "slack", "value": "https://hooks.slack.com/services/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"},
 	{"name": "gmail", "value": "hv"}
   	]
-} '''
+} ```
 
 ## Contributors
 
