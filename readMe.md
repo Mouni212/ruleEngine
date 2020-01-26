@@ -4,7 +4,8 @@ This service allows for monitoring of multiple systems. Each system's health can
 Slides are also attached.
 
 One such request to server can be:
-``` {
+```
+{
   "name": "Rule4",
   "namespace": "Recommendation",
   "frequency":"0d_0h_0m_5000s",
