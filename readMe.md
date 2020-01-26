@@ -12,7 +12,8 @@ One such request to server can be:
   "actions":[{"name": "slack", "value": "https://hooks.slack.com/services/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"},
 	{"name": "gmail", "value": "hv"}
   	]
-} ```
+} 
+```
 
 ## Contributors
 
