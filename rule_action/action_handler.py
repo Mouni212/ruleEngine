@@ -22,7 +22,10 @@ class SlackHandler(ActionHandler):
 
     @classmethod
     def apply_action(cls, url, msg):
+        print("In apply action")
+        print(msg)
         data = {'text': msg}
+        print(data['text'])
         response = requests.post(url, json.dumps(data), headers={'content-type': 'application/json'})
         return response
 

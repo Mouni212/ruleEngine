@@ -19,7 +19,7 @@ def validate_evaluate(rule_condition):
                 i = i + 3
                 rules += result
             except Exception as e:
-                raise exceptions.InvalidException("Rule is not valid")
+                raise exceptions.InvalidException("Rule syntax is not valid")
         else:
             rules += word_list[i]
             i = i+1
@@ -29,8 +29,10 @@ def validate_evaluate(rule_condition):
         result_value = eval(rules)
         if result_value is True:
             return result_value
+        else:
+            return False
     except:
-        raise exceptions.InvalidException("Rule is not valid")
+        raise exceptions.InvalidException("Rule syntax is not valid")
 
 
 def is_valid_value(param):
@@ -59,6 +61,7 @@ def create_rule(name_space, rule_condition, rule_name, action_value_map, freq):
     try:
         is_valid_rule = validate_evaluate(rule_condition)
     except Exception as e:
+        print("insert rule 1", e)
         raise e
 
     if is_valid_rule is None:
@@ -68,6 +71,7 @@ def create_rule(name_space, rule_condition, rule_name, action_value_map, freq):
     try:
         action_value_map = modify_action_value_map(action_value_map)
     except Exception as e:
+        print("insert rule 2", e)
         raise e
 
     if action_value_map is None:
@@ -80,6 +84,7 @@ def create_rule(name_space, rule_condition, rule_name, action_value_map, freq):
         try:
             rule_id = Rule.insert_into_rule_table(name_space, rule_condition, rule_name, freq)
         except Exception as e:
+            print("insert rule", e)
             raise e
 
     for action_value in action_value_map:
@@ -88,6 +93,7 @@ def create_rule(name_space, rule_condition, rule_name, action_value_map, freq):
         try:
             RuleAction.insert_into_rule_action_table(rule_id, action_id, value)
         except Exception as e:
+            print("action rule", e)
             raise e
 
 
